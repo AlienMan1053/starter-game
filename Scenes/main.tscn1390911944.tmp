@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://3hs7uohwtm3o"]
+
+[ext_resource type="PackedScene" uid="uid://cg6hmfiwdq4ex" path="res://Scenes/player.tscn" id="1_8gbba"]
+[ext_resource type="PackedScene" uid="uid://qlgggfcfx2t0" path="res://Scenes/static_body_2d.tscn" id="2_jjvhh"]
+[ext_resource type="Script" uid="uid://day3xn6hukfnk" path="res://Code/game_manager.gd" id="3_kry3j"]
+
+[node name="Main" type="Node2D" unique_id=157004885]
+
+[node name="CharacterBody2D" parent="." unique_id=641554830 instance=ExtResource("1_8gbba")]
+position = Vector2(96, 444)
+scale = Vector2(0.5, 0.5)
+
+[node name="Ground" parent="." unique_id=787238617 instance=ExtResource("2_jjvhh")]
+position = Vector2(576, 601)
+scale = Vector2(3.2, 0.25)
+
+[node name="GameManager" type="Node" parent="." unique_id=33970854]
+script = ExtResource("3_kry3j")

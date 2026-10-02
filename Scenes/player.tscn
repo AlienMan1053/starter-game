@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cg6hmfiwdq4ex"]
 
-[ext_resource type="Script" uid="uid://bflfcyasx4c4d" path="res://Code/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://cqx61bacq7p1s" path="res://Code/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://c406u6826x1nn" path="res://Assets/Art/stick_figure.png" id="1_v0iea"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cvnsp"]
@@ -10,19 +10,34 @@ animations = [{
 "texture": ExtResource("1_v0iea")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6t5aa"]
-radius = 97.0
-height = 398.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0iea"]
+size = Vector2(172, 332)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=641554830]
+[node name="Player" type="CharacterBody2D" unique_id=641554830 groups=["Player"]]
+collision_mask = 3
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1501847201]
 sprite_frames = SubResource("SpriteFrames_cvnsp")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=607045530]
-shape = SubResource("CapsuleShape2D_6t5aa")
+position = Vector2(2, 6)
+shape = SubResource("RectangleShape2D_v0iea")
+
+[node name="PlayerHitbox" type="Area2D" parent="." unique_id=2087761317]
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox" unique_id=661389615]
+position = Vector2(2, 6)
+shape = SubResource("RectangleShape2D_v0iea")
+
+[node name="AttackCooldown" type="Timer" parent="." unique_id=1750247985]
+
+[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]

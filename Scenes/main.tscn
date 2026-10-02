@@ -1,18 +1,105 @@
 [gd_scene format=3 uid="uid://3hs7uohwtm3o"]
 
 [ext_resource type="PackedScene" uid="uid://cg6hmfiwdq4ex" path="res://Scenes/player.tscn" id="1_8gbba"]
-[ext_resource type="PackedScene" uid="uid://qlgggfcfx2t0" path="res://Scenes/static_body_2d.tscn" id="2_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://qlgggfcfx2t0" path="res://Scenes/ground.tscn" id="2_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://cxl4eo0c4i0ut" path="res://Scenes/start_menu.tscn" id="2_kry3j"]
+[ext_resource type="Texture2D" uid="uid://camsqplmhc440" path="res://Assets/Art/Sky.png" id="3_21xkr"]
 [ext_resource type="Script" uid="uid://day3xn6hukfnk" path="res://Code/game_manager.gd" id="3_kry3j"]
+[ext_resource type="Script" uid="uid://b5lnhw1v7c85b" path="res://Code/health_label.gd" id="5_344ge"]
+[ext_resource type="Script" uid="uid://d10rp3e0l5vfi" path="res://Code/progress_bar.gd" id="7_6bp64"]
+[ext_resource type="PackedScene" uid="uid://cps4h8lwh6yu6" path="res://Scenes/enemy.tscn" id="8_344ge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bp64"]
+size = Vector2(127.88889, 117)
 
 [node name="Main" type="Node2D" unique_id=157004885]
 
-[node name="CharacterBody2D" parent="." unique_id=641554830 instance=ExtResource("1_8gbba")]
-position = Vector2(96, 444)
-scale = Vector2(0.5, 0.5)
+[node name="GameManager" type="Node" parent="." unique_id=247638512]
+unique_name_in_owner = true
+script = ExtResource("3_kry3j")
+
+[node name="StartMenu" parent="." unique_id=1024174444 instance=ExtResource("2_kry3j")]
+unique_name_in_owner = true
+visible = false
+offset_left = -38.0
+offset_right = 1195.0
+offset_bottom = 994.0
+color = Color(0.6627451, 0.13725491, 0.15686275, 1)
+
+[node name="DropTimer" type="Timer" parent="." unique_id=882533654]
+unique_name_in_owner = true
+
+[node name="Left Wall" type="StaticBody2D" parent="." unique_id=749645403]
+position = Vector2(-59, 519)
+rotation = 1.5707964
+scale = Vector2(9, 1)
+collision_layer = 2
+collision_mask = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left Wall" unique_id=1028452394]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_6bp64")
+
+[node name="Right Wall" type="StaticBody2D" parent="." unique_id=1184378310]
+position = Vector2(1216, 512)
+rotation = -1.5707964
+scale = Vector2(9, 1)
+collision_layer = 2
+collision_mask = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right Wall" unique_id=1906642146]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_6bp64")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1297347585]
+z_index = -1
+position = Vector2(577.25, 508.84003)
+scale = Vector2(3.0170598, 2.8213332)
+texture = ExtResource("3_21xkr")
 
 [node name="Ground" parent="." unique_id=787238617 instance=ExtResource("2_jjvhh")]
-position = Vector2(576, 601)
+position = Vector2(576, 685)
 scale = Vector2(3.2, 0.25)
+collision_layer = 2
+collision_mask = 2
 
-[node name="GameManager" type="Node" parent="." unique_id=33970854]
-script = ExtResource("3_kry3j")
+[node name="Player" parent="." unique_id=641554830 instance=ExtResource("1_8gbba")]
+position = Vector2(242, 440)
+scale = Vector2(0.5, 0.5)
+
+[node name="PlayerHealth" type="Control" parent="." unique_id=1900280705]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthLabel" type="Label" parent="PlayerHealth" unique_id=352634747]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 488.0
+offset_top = 299.0
+offset_right = 661.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Health: 0"
+script = ExtResource("5_344ge")
+
+[node name="HealthBar" type="ProgressBar" parent="PlayerHealth" unique_id=556445321]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 18.0
+offset_top = 9.0
+offset_right = 317.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+max_value = 5.0
+step = 1.0
+show_percentage = false
+script = ExtResource("7_6bp64")
+
+[node name="Enemy" parent="." unique_id=2104796611 instance=ExtResource("8_344ge")]
+position = Vector2(1089, 591)
+scale = Vector2(0.25, 0.25)

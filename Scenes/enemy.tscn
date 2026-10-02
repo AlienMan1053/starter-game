@@ -3,11 +3,14 @@
 [ext_resource type="Script" uid="uid://c3mhg3rq1mfal" path="res://Code/enemy.gd" id="1_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://ua6ioklrnhxh" path="res://Assets/Art/Enemy.png" id="1_hghv2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_afpow"]
-size = Vector2(392, 361)
+[sub_resource type="CircleShape2D" id="CircleShape2D_afpow"]
+radius = 140.11156
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
-radius = 1163.1552
+radius = 816.03064
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_287tu"]
+radius = 138.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=2104796611]
 collision_layer = 4
@@ -15,8 +18,8 @@ collision_mask = 7
 script = ExtResource("1_1f0kj")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1986852244]
-position = Vector2(-3, 0.5)
-shape = SubResource("RectangleShape2D_afpow")
+position = Vector2(5, 0.5)
+shape = SubResource("CircleShape2D_afpow")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=154295841]
 texture = ExtResource("1_hghv2")
@@ -26,6 +29,13 @@ collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection" unique_id=2007793641]
 shape = SubResource("CircleShape2D_1f0kj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1543848479]
+collision_layer = 4
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=824245676]
+shape = SubResource("CircleShape2D_287tu")
 
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]

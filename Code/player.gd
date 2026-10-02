@@ -7,6 +7,12 @@ var enemy_attack_cooldown = true
 func _physics_process(delta: float) -> void:
 	movement(delta)
 	enemy_attack()
+	if Input.is_action_just_pressed("Hurt"):
+		GameManager.damage()
+	if Input.is_action_just_pressed("Heal"):
+		GameManager.heal()
+	if Input.is_action_just_pressed("Add"):
+		GameManager.add_item()
 
 func movement(delta):
 	# Add the gravity.

@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b5lnhw1v7c85b" path="res://Code/health_label.gd" id="5_344ge"]
 [ext_resource type="Script" uid="uid://d10rp3e0l5vfi" path="res://Code/progress_bar.gd" id="7_6bp64"]
 [ext_resource type="PackedScene" uid="uid://cps4h8lwh6yu6" path="res://Scenes/enemy.tscn" id="8_344ge"]
+[ext_resource type="Script" uid="uid://bt0i4b448055j" path="res://Code/item.gd" id="8_ynf5e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6bp64"]
 size = Vector2(127.88889, 117)
@@ -30,7 +31,7 @@ color = Color(0.6627451, 0.13725491, 0.15686275, 1)
 unique_name_in_owner = true
 
 [node name="Left Wall" type="StaticBody2D" parent="." unique_id=749645403]
-position = Vector2(-59, 519)
+position = Vector2(-55, 455)
 rotation = 1.5707964
 scale = Vector2(9, 1)
 collision_layer = 2
@@ -42,7 +43,7 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_6bp64")
 
 [node name="Right Wall" type="StaticBody2D" parent="." unique_id=1184378310]
-position = Vector2(1216, 512)
+position = Vector2(1220, 448)
 rotation = -1.5707964
 scale = Vector2(9, 1)
 collision_layer = 2
@@ -60,22 +61,22 @@ scale = Vector2(3.0170598, 2.8213332)
 texture = ExtResource("3_21xkr")
 
 [node name="Ground" parent="." unique_id=787238617 instance=ExtResource("2_jjvhh")]
-position = Vector2(576, 685)
+position = Vector2(580, 621)
 scale = Vector2(3.2, 0.25)
 collision_layer = 2
 collision_mask = 2
 
 [node name="Player" parent="." unique_id=641554830 instance=ExtResource("1_8gbba")]
-position = Vector2(242, 440)
+position = Vector2(246, 376)
 scale = Vector2(0.5, 0.5)
 
-[node name="PlayerHealth" type="Control" parent="." unique_id=1900280705]
+[node name="UI" type="Control" parent="." unique_id=1900280705]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HealthLabel" type="Label" parent="PlayerHealth" unique_id=352634747]
+[node name="HealthLabel" type="Label" parent="UI" unique_id=352634747]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 488.0
@@ -87,7 +88,7 @@ theme_override_font_sizes/font_size = 40
 text = "Health: 0"
 script = ExtResource("5_344ge")
 
-[node name="HealthBar" type="ProgressBar" parent="PlayerHealth" unique_id=556445321]
+[node name="HealthBar" type="ProgressBar" parent="UI" unique_id=556445321]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 18.0
@@ -100,6 +101,21 @@ step = 1.0
 show_percentage = false
 script = ExtResource("7_6bp64")
 
+[node name="Item" type="Label" parent="UI" unique_id=1808528633]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 118.0
+offset_right = 292.0
+offset_bottom = 173.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "Item: 0"
+script = ExtResource("8_ynf5e")
+
 [node name="Enemy" parent="." unique_id=2104796611 instance=ExtResource("8_344ge")]
-position = Vector2(1089, 591)
+position = Vector2(1093, 527)
+scale = Vector2(0.25, 0.25)
+
+[node name="Enemy2" parent="." unique_id=2012324193 instance=ExtResource("8_344ge")]
+position = Vector2(759, 278)
 scale = Vector2(0.25, 0.25)

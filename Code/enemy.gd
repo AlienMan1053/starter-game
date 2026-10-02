@@ -1,12 +1,10 @@
 extends CharacterBody2D
 
-var speed = 30
+var speed = 75
 var player_chase = false
 var player = null
 
 func _physics_process(delta):
-	if not is_on_floor():
-		velocity += get_gravity() * delta
 	if player_chase:
 		position += (player.position - position) / speed
 

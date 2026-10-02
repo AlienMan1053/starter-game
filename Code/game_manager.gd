@@ -1,8 +1,7 @@
 extends Node
 #Displayed game information
-signal score_changed(new_score)
-signal combo_changed(new_combo)
 signal health_changed(new_health)
+signal item_changed(new_item)
 
 #Score trackers
 var score = 0
@@ -24,8 +23,11 @@ const JUMP_DEBUFF = 65.0
 const JUMP_BUFF = 45.0
 
 #Sound and world variables
-var health = 5
-const MAX_HEALTH = 5
+var health = 7
+const MAX_HEALTH = 10
+
+var item = 5
+const MAX_ITEM = 7
 
 enum GAME_STATES {
 	MENU,
@@ -47,15 +49,24 @@ func add_point():
 	#print(score)
 
 func damage():
-	comboMultipier = 1.0
-	score -= 10*comboMultipier
-	health -= 1
+	if health > 0:
+		health -= 1
 	if health == 0:
 		_state = GAME_STATES.GAME_OVER
-	
 	emit_signal("health_changed", health)
-	emit_signal("score_changed",score)
-	emit_signal("combo_changed",comboMultipier)
+
+func heal():
+	if health < MAX_HEALTH and item > 0:
+		health += 1
+		item -= 1
+		
+	emit_signal("health_changed", health)
+	emit_signal("item_changed", item)
+
+func add_item():
+	if item < MAX_ITEM:
+		item += 1
+	emit_signal("item_changed", item)
 
 func pause():
 	_state = GAME_STATES.PAUSED
